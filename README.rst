@@ -85,6 +85,30 @@ You need to specify input and output directories using the `-v` flag to `docker 
         fnndsc/pl-optipng optipng                        \
         /incoming /outgoing
 
+Follow steps below to reduce the size of a png file or any other external formats mentioned above into a optimized png
+----------------------------------------------------------------------------------------------------------------------
+- clone repo ``https://github.com/rh-impact/pl-optipng`` by running the command ``git clone https://github.com/rh-impact/pl-optipng``
+- Now ``cd`` to the cloned repo
+- create a directory called ``in`` inside the repo
+- create another directory called ``out`` inside the repo
+- In the ``in`` directory download any ``.png`` files and note down their sizes
+- Now build the ``Dockerfile`` inside the directory by running the command ``docker build -t local/pl-optipng .``
+- With out using the interactive shell you could run the command below to see the size of png file reduced
+
+.. code:: bash
+
+   docker run --privileged --rm -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing localhost/local/pl-optipng optipng /incoming /outgoing
+
+- If you would like to use the interactive shell run the commands below to see the size of png file reduced
+
+.. code:: bash
+
+   - docker run --privileged --rm -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing -it localhost/local/pl-optipng /bin/bash
+   - /usr/bin/optipng --help
+   - /usr/bin/optipng -dir <outputdir> -- <absolutepath of input png file> (or)
+   - /usr/bin/optipng <absolutepath of png file>
+
+
 
 Development
 -----------
@@ -100,6 +124,25 @@ Run unit tests:
 .. code:: bash
 
     docker run --rm local/pl-optipng nose2
+
+Sample Outputs
+--------------
+
+.. code:: bash
+
+   Processing: Sample-png-image-20mb.png
+     5891x2271 pixels, 4x8 bits/pixel, RGB+alpha
+     Reducing image to 3x8 bits/pixel, RGB
+     Input IDAT size = 21134274 bytes
+     Input file size = 21141605 bytes
+     Trying:
+      zc = 9  zm = 8  zs = 0  f = 5		IDAT size = 17612792
+      zc = 9  zm = 8  zs = 1  f = 5		IDAT size = 17248219
+                               
+    Selecting parameters:
+     zc = 9  zm = 8  zs = 1  f = 5		IDAT size = 17248219
+    Output IDAT size = 17248219 bytes (3886055 bytes decrease)
+    Output file size = 17251686 bytes (3889919 bytes = 18.40% decrease)
 
 Examples
 --------
