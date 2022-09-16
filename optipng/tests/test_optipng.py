@@ -9,6 +9,7 @@ _TEST_DIR = os.path.abspath(os.path.dirname(__file__))
 
 def _reset_output_dir() -> None:
     output_dir = os.path.join(_TEST_DIR, 'testdata/outputdir')
+    os.makedirs(output_dir)
     shutil.rmtree(output_dir)
     os.makedirs(output_dir)
 
