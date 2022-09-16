@@ -99,7 +99,7 @@ Run unit tests:
 
 .. code:: bash
 
-    docker run --rm local/pl-optipng nosetests
+    docker run --rm local/pl-optipng nose2
 
 Examples
 --------

@@ -27,7 +27,7 @@ jobs:
       - name: build
         run: docker build -t "${GITHUB_REPOSITORY,,}" .
       - name: nose tests
-        run: docker run "${GITHUB_REPOSITORY,,}" nosetests
+        run: docker run "${GITHUB_REPOSITORY,,}" nose2
 
   publish:
     # to enable upload to DockerHub and chrisstore.co
